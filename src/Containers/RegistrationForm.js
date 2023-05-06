@@ -74,13 +74,14 @@ class Register extends Component {
       .computeId(laddress, lamount)
       .call()
     this.setState({ propertyId })
-    console.log(propertyId)
+    //console.log(propertyId)
   }
 
   async Register(data, account, laddress, lamount) {
     var buf = Buffer.from(JSON.stringify(data))
-    ipfs.files.add(buf, (error, result) => {
-      console.log('Ipfs result', result)
+    await ipfs.files.add(buf, (error, result) => {
+      console.log('Ipfs result', result);
+      console.log(result);
       if (error) {
         console.error(error)
         return
@@ -139,7 +140,8 @@ class Register extends Component {
       document: this.state.buffer,
       images: this.state.image,
     }
-    // console.log(data)
+    console.log("data from add land")
+    console.log(data)
     if (data) {
       try {
         this.propertyID(laddress, lamount)
@@ -160,6 +162,7 @@ class Register extends Component {
       this.setState({ buffer: reader.result })
     }
   }
+
   fileSelectedHandler = async (e) => {
     await this.setState({ images: [...e.target.files] })
     for (let i = 0; i < this.state.images.length; i++) {

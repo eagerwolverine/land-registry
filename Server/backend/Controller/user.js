@@ -6,8 +6,10 @@ var User = require('../Model/User')
 var Govt = require('../Model/Government_Registrar')
 var sms = require('../Api/send_sms')
 var mail = require('../Api/send_mail')
+const { PostAdd } = require('@material-ui/icons')
 router.post('/signup', async (req, res) => {
-  const { email, name, contact, address, city, postalCode } = req.body
+  const { email, name, contact, address, city, postalCode } = req.body;
+  console.log(email + " " + address);
   try {
     let user = await User.findOne({
       email,
@@ -17,7 +19,7 @@ router.post('/signup', async (req, res) => {
         message: 'User Already Exists',
       })
     }
-
+   console.log(email);
     user = new User({
       email,
       name,
@@ -26,7 +28,7 @@ router.post('/signup', async (req, res) => {
       city,
       postalCode,
     })
-
+    console.log(user);
     await user.save()
     res.status(200).send('Thanks for registering!')
   } catch (err) {
@@ -63,6 +65,7 @@ router.post('/register_govt', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body
+  console.log(username+ " "+password);
   try {
     let user = await Govt.findOne({
       username,

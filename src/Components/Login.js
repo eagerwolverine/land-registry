@@ -74,7 +74,8 @@ class Login extends Component {
         const user = await this.state.landList.methods
           .getUser(data.address)
           .call()
-
+        console.log(user);
+        
         if (user) {
           this.setState({
             uid: user[0],
@@ -91,6 +92,7 @@ class Login extends Component {
             // window.localStorage.setItem('category', 'user')
             window.location = '/dashboard'
           } else {
+            window.localStorage.setItem('authenticated', true)
             console.log('Login Failed')
             window.localStorage.setItem('authenticated', false)
             this.props.history.push('/login')
